@@ -1,0 +1,1 @@
+const Map<String, String>  authorizer = {'X-CoinAPI-Key': 'INGRESA-AQUI-TU-API-KEY'};
