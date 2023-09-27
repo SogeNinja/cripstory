@@ -48,4 +48,4 @@ app.*.map.json
 .linux/
 
 # Api key
-.services/api_key.dart
+.lib/services/api_key.dart
