@@ -33,7 +33,7 @@ class _InfiniteListState extends State<InfiniteList> {
                   child: ListTile(
                     leading: widget.items[index].iconUrl.isEmpty
                         ? const Icon(Icons.monetization_on)
-                        : Image.network(widget.items[index].iconUrl),
+                        : Image.network(widget.items[index].iconUrl, width: 18, height: 18,),
                     title: Text(widget.items[index].name),
                     onTap: () {
                       Provider.of<SelectedAsset>(context, listen: false).setSelectedAsset(widget.items[index]);

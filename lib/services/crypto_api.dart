@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 const String autorithy = 'rest.coinapi.io';
 
 
-
 Future<void> getAllAssets(AssetCollection value) async {
   try{
     Uri url = Uri.https(autorithy,'/v1/assets');
@@ -17,8 +16,10 @@ Future<void> getAllAssets(AssetCollection value) async {
       url,
       headers: authorizer
     );
+    
     if(response.statusCode == 200){
-      value.updateListOfAssets(response.body);
+      String iconsBody = await getIcons();
+      value.updateListOfAssets(response.body, iconsBody);
     }else{
       debugPrint(response.statusCode.toString());
     }
@@ -71,4 +72,23 @@ Future<List<CryptoPeriod>> getListCryptoPeriods() async {
     debugPrint(e.toString());
   }
   return [];
+}
+
+Future<String> getIcons() async {
+  try{
+    var url = Uri.https(autorithy,'/v1/assets/icons/24');
+    http.Response response = await http.get(
+      url,
+      headers: authorizer
+    );
+
+    if(response.statusCode == 200){
+      return response.body;
+    }else{
+      debugPrint(response.statusCode.toString());
+    }
+  }catch(e){
+    debugPrint(e.toString());
+  }
+  return "[]";
 }

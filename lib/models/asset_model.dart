@@ -67,11 +67,14 @@ class AssetCollection extends ChangeNotifier{
   List<Asset> _allAssets = [];
   List<Asset> get allAssets => _allAssets;
 
-  void updateListOfAssets(String assetsjson){
+  void updateListOfAssets(String assetsjson, String iconsjson){
     _allAssets = [];
     List<dynamic> decodedAssets = jsonDecode(assetsjson);
+    List<dynamic> decodedIcons = jsonDecode(iconsjson);
     for(var a in decodedAssets){
-      var asset = Asset.fromJson(a);      
+      var asset = Asset.fromJson(a);
+      String iconUrl = decodedIcons.firstWhere((element) => element["asset_id"] == asset.assetId, orElse: () => {"url":""})["url"];
+      asset.iconUrl = iconUrl;
       _allAssets.add(asset);
     }
     notifyListeners();
